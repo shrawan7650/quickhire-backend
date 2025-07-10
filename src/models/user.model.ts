@@ -179,7 +179,6 @@ const resumeInsightsSchema = new mongoose.Schema({
   atsReady: {
     type: Boolean,
     required: false,
-    
   },
   skillScore: {
     type: Number,
@@ -202,7 +201,12 @@ const resume = new mongoose.Schema({
 
 const userSchema = new mongoose.Schema<UserType>({
   name: { type: String, required: false },
-  userName: { type: String, unique: true, required: false },
+  profileCompleted: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  username: { type: String, unique: true, required: false },
   email: { type: String, unique: true, required: false },
   password: { type: String, required: false },
   age: {
@@ -214,17 +218,19 @@ const userSchema = new mongoose.Schema<UserType>({
     required: false,
     enum: ["Male", "Female", "Other"],
   },
-  role:{
+  role: {
     type: String,
     required: false,
-    enum: ["user", "admin","company"],
+    enum: ["user", "admin", "company"],
     default: "user",
   },
   location: {
     type: String,
     required: false,
   },
-  avtar: {
+  provider: { type: String, required: true },
+  providerId: { type: String },
+  avatar: {
     type: String,
     required: false,
   },
@@ -261,13 +267,13 @@ const userSchema = new mongoose.Schema<UserType>({
   projects: [projectSchema],
   certifications: [certificationSchema],
   achievements: [String],
-  preferredRoles: [String],
+  jobpreferences: [String],
   availability: { type: String, enum: ["full-time", "internship", "contract"] },
   locationPreference: {
     type: String,
     required: false,
   },
-  languageProficiency: [String],
+  // languageProficiency: [String],
   githubStats: {
     totalRepos: {
       type: Number,

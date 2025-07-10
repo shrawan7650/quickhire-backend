@@ -91,10 +91,11 @@ export interface resumeTypes {
 }
 
 export interface UserType extends Document {
-  name: string;
-  userName: string;
-  email: string;
-  password: string;
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  profileCompleted:Boolean,
+  username: string;
+  password?: string;
 
   age: number;
   gender: {
@@ -102,7 +103,9 @@ export interface UserType extends Document {
     enum: ["Male", "Female", "Other"];
   };
   location?: string;
-  avtar?: string;
+  avatar?: string;
+  providerId?: string;
+  provider: "manual" | "google" | "github";
   banner?: string;
   about?: string;
   professionalSummary?: string;
@@ -123,10 +126,10 @@ export interface UserType extends Document {
   projects?: ProjectType[];
   certifications?: CertificationType[];
   achievements?: string[];
-  preferredRoles?: string[];
+  jobpreferences?: string[];
   availability?: "full-time" | "internship" | "contract";
   locationPreference?: string;
-  languageProficiency?: string[];
+  // languageProficiency?: string[];
   githubStats?: GithubStatsType;
   leetcodeStats?: LeetcodeStatsType;
   profileViews?: number;

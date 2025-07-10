@@ -1,28 +1,22 @@
 import express from "express";
 import {
-  createUser,
-  // getUsers,
-  // getUserById,
-  // updateUser,
-  // deleteUser,
+  completeProfile
 } from "../controllers/user.controller";
 import { upload } from "../utils/multerStorage";
-// import upload from "../utils/multerStorage";
+import { authenticateJWT } from "../middlewares/authenticateJWT";
 
 const router = express.Router();
 
 router.post(
-  "/signup",
+  "/complete-profile",
+  authenticateJWT,
   upload.fields([
     { name: "profileImage", maxCount: 1 },
     { name: "resumeFile", maxCount: 1 },
     { name: "bannerImage", maxCount: 1 },
   ]),
-  createUser
+  completeProfile
 );
-// router.get('/', getUsers);
-// router.get('/:id', getUserById);
-// router.put('/:id', updateUser);
-// router.delete('/:id', deleteUser);
+
 
 export default router;
